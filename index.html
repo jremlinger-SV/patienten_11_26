@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Osteoporose-Frakturrisiko – Beispielfälle nach DVO-Leitlinie</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* DOUV Brand Colors */
+  --navy:#1c2e47;--navy-mid:#253a58;--navy-light:#3a5878;
+  --teal:#2d6fa3;--teal-light:#4a8bbf;--teal-pale:#eaf2f8;
+  --amber:#c97a1a;--amber-pale:#fef5e7;
+  --red:#c0392b;--red-pale:#fdf0ee;
+  --green:#6a9e72;--green-light:#9ec4a0;--green-pale:#eef6ef;
+  --blue-pale:#eaf2f8;
+  --gray-100:#f4f6f9;--gray-200:#e8ecf2;--gray-300:#cdd4df;
+  --gray-500:#7a8899;--white:#fff;--text:#1c2e47;--text-muted:#5a6e82;
+  --r:10px;--rlg:16px;
+  --shadow:0 4px 12px rgba(28,46,71,.10),0 2px 4px rgba(28,46,71,.06);
+  --safe-b:env(safe-area-inset-bottom,0px);
+  --safe-l:env(safe-area-inset-left,0px);
+  --safe-r:env(safe-area-inset-right,0px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{font-family:'DM Sans',sans-serif;background:var(--gray-100);color:var(--text);min-height:100vh;line-height:1.6;-webkit-tap-highlight-color:transparent;}
+.site-header{background:var(--navy);color:#fff;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.18);}
+.header-inner{max-width:1100px;margin:0 auto;padding:0 1rem;display:flex;align-items:center;justify-content:space-between;height:64px;}
+.logo-wrap{display:flex;align-items:center;gap:0;text-decoration:none;}
+.logo-img-bg{background:#fff;border-radius:8px;padding:5px 10px;display:flex;align-items:center;justify-content:center;height:44px;flex-shrink:0;}
+.logo-img-bg img{height:30px;width:auto;display:block;}
+.logo-tagline{margin-left:12px;display:flex;flex-direction:column;justify-content:center;}
+.logo-tagline-top{font-size:13px;font-weight:600;color:#fff;line-height:1.2;}
+.logo-tagline-sub{font-size:11px;font-weight:400;color:rgba(255,255,255,.72);line-height:1.3;}
+.header-badge{font-size:11px;background:rgba(224,90,0,.85);padding:3px 9px;border-radius:20px;color:#fff;font-weight:500;}
+.hero{background:linear-gradient(135deg,#dcefe1 0%,#c6e3cf 55%,#aed5ba 100%);color:#1f4d33;padding:2rem 1rem 2.5rem;}
+.hero-inner{max-width:1100px;margin:0 auto;}
+.hero-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#2f6b45;background:rgba(106,158,114,.22);padding:3px 10px;border-radius:20px;margin-bottom:.6rem;}
+.hero h1{font-family:'DM Sans',sans-serif;font-weight:600;font-size:clamp(1.5rem,5vw,2.4rem);line-height:1.15;margin-bottom:.5rem;}
+.hero h1 em{font-style:normal;color:#3f8a5a;}
+.hero-sub{font-size:16px;color:#3c6b4e;font-weight:400;}
+.main-layout{max-width:1100px;margin:0 auto;padding:1rem;display:grid;grid-template-columns:1fr;gap:1rem;}
+@media(min-width:768px){.main-layout{grid-template-columns:1fr 300px;padding:1.5rem;}}
+.card{background:var(--white);border-radius:var(--rlg);box-shadow:var(--shadow);overflow:hidden;}
+.card-header{padding:1rem 1.25rem;border-bottom:1px solid var(--gray-200);display:flex;align-items:center;gap:10px;}
+.card-header-icon{width:30px;height:30px;border-radius:8px;background:var(--teal-pale);display:flex;align-items:center;justify-content:center;}
+.card-header-icon svg{width:15px;height:15px;stroke:var(--navy-light);fill:none;stroke-width:2;stroke-linecap:round;}
+.card-title{font-size:14px;font-weight:600;color:var(--navy);}
+.card-subtitle{font-size:12px;color:var(--text-muted);margin-top:1px;}
+.card-body{padding:1rem 1.25rem;}
+.steps-nav{display:flex;background:var(--gray-100);border-radius:var(--r);padding:3px;margin-bottom:1.25rem;}
+.step-btn{flex:1;min-height:44px;padding:6px 4px;font-size:11px;color:var(--text-muted);background:transparent;border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;-webkit-appearance:none;font-family:'DM Sans',sans-serif;}
+.step-btn.active{background:#fff;color:var(--navy);font-weight:500;box-shadow:0 1px 3px rgba(13,33,55,.08);}
+.step-btn.done .step-num{background:var(--green);color:#fff;}
+.step-num{width:20px;height:20px;border-radius:50%;background:var(--gray-200);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;pointer-events:none;}
+.step-btn.active .step-num{background:var(--green);color:#fff;}
+.step-panel{display:none;}
+.step-panel.active{display:block;}
+.form-row{margin-bottom:1rem;}
+.form-label{display:block;font-size:11px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+.form-input{width:100%;padding:12px;font-size:16px;font-family:'DM Sans',sans-serif;border:1.5px solid var(--gray-300);border-radius:var(--r);background:#fff;color:var(--text);-webkit-appearance:none;}
+.form-input:focus{outline:none;border-color:var(--navy-light);}
+.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;}
+.gender-group{display:flex;gap:8px;}
+.gender-btn{flex:1;min-height:52px;padding:12px 16px;font-size:15px;font-family:'DM Sans',sans-serif;border:1.5px solid var(--gray-300);border-radius:var(--r);background:#fff;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;-webkit-appearance:none;}
+.gender-btn.active{border-color:var(--green);background:var(--green-pale);color:var(--green);font-weight:500;}
+.gender-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;pointer-events:none;}
+.age-badge{display:flex;align-items:center;gap:10px;background:var(--green-pale);border:1.5px solid var(--green);border-radius:var(--r);padding:0 12px;width:100%;height:48px;}
+.age-badge-num{font-size:20px;font-weight:500;color:var(--green);font-family:'DM Sans',sans-serif;white-space:nowrap;line-height:1;}
+.age-badge-label{font-size:12px;color:var(--text-muted);white-space:nowrap;}
+.age-badge.missing{background:var(--gray-100);border-color:var(--gray-300);}
+.age-badge.missing .age-badge-num{color:var(--gray-500);font-size:14px;font-family:'DM Sans',sans-serif;}
+.patient-chip{background:var(--navy);color:#fff;border-radius:var(--r);padding:10px 12px;margin-bottom:1rem;display:flex;align-items:center;flex-wrap:wrap;gap:8px;}
+.patient-chip-name{font-size:14px;font-weight:500;}
+.patient-chip-detail{font-size:12px;color:rgba(255,255,255,.6);}
+.patient-chip-tag{font-size:11px;background:rgba(255,255,255,.15);padding:2px 8px;border-radius:10px;}
+.rf-group{margin-bottom:6px;border:1px solid var(--gray-200);border-radius:var(--r);overflow:hidden;}
+.rf-group-header{min-height:48px;padding:10px 12px;background:var(--gray-100);display:flex;align-items:center;justify-content:space-between;cursor:pointer;}
+.rf-group-name{font-size:13px;font-weight:500;color:var(--navy);pointer-events:none;}
+.rf-badge{font-size:10px;padding:2px 7px;border-radius:10px;background:var(--green);color:#fff;font-weight:600;margin-left:6px;pointer-events:none;}
+.rf-chevron{width:16px;height:16px;stroke:var(--gray-500);fill:none;stroke-width:2;stroke-linecap:round;pointer-events:none;}
+.rf-items{display:none;}
+.rf-items.open{display:block;}
+.rf-item{min-height:48px;padding:10px 12px 10px 38px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;border-top:1px solid var(--gray-200);gap:8px;}
+.rf-item.selected{background:var(--green-pale);}
+.rf-item-check{width:18px;height:18px;border:1.5px solid var(--gray-300);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-left:-24px;margin-right:6px;pointer-events:none;}
+.rf-item.selected .rf-item-check{background:var(--green);border-color:var(--green);}
+.rf-item.selected .rf-item-check::after{content:'';width:8px;height:5px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translateY(-1px);display:block;}
+.rf-item-label{font-size:13px;color:var(--text);flex:1;line-height:1.4;pointer-events:none;}
+.rf-item-grad{font-size:11px;font-weight:600;color:var(--navy-light);background:var(--blue-pale);padding:3px 8px;border-radius:5px;flex-shrink:0;pointer-events:none;}
+.factor-bar{background:var(--navy);border-radius:var(--r);padding:.9rem 1.1rem;color:#fff;display:flex;align-items:center;justify-content:space-between;margin-top:1rem;margin-bottom:1.25rem;}
+.factor-bar-label{font-size:11px;color:rgba(255,255,255,.6);margin-bottom:1px;}
+.factor-bar-val{font-size:24px;font-weight:500;font-family:'DM Sans',sans-serif;}
+.factor-bar-formula{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px;}
+.slider-val{font-size:26px;font-weight:500;color:var(--navy);margin-bottom:8px;font-family:'DM Sans',sans-serif;}
+input[type=range]{width:100%;height:6px;-webkit-appearance:none;background:var(--gray-200);border-radius:3px;outline:none;cursor:pointer;touch-action:pan-y;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--navy-light);border:3px solid #fff;box-shadow:0 0 0 2px var(--navy-light);}
+/* Slider-Labels exakt unter Tick-Positionen ausrichten.
+   Thumb-Radius=13px. Labels per position:absolute mit calc() gesetzt. */
+.slider-labels{position:relative;height:16px;margin-top:4px;}
+.slider-labels span{position:absolute;font-size:10px;color:var(--gray-500);transform:translateX(-50%);}
+.slider-labels span:nth-child(1){left:calc(0 * (100% - 26px) / 4 + 13px);}
+.slider-labels span:nth-child(2){left:calc(1 * (100% - 26px) / 4 + 13px);}
+.slider-labels span:nth-child(3){left:calc(2 * (100% - 26px) / 4 + 13px);}
+.slider-labels span:nth-child(4){left:calc(3 * (100% - 26px) / 4 + 13px);}
+.slider-labels span:nth-child(5){left:calc(4 * (100% - 26px) / 4 + 13px);}
+.tscore-band{display:flex;margin-top:10px;margin-left:13px;margin-right:13px;border-radius:4px;overflow:hidden;height:6px;}
+.tscore-direct{display:flex;align-items:center;gap:10px;margin-top:12px;}
+.tscore-direct label{font-size:12px;color:var(--text-muted);}
+.tscore-direct input{width:90px;padding:8px 10px;font-size:16px;border:1.5px solid var(--gray-300);border-radius:var(--r);font-family:'DM Sans',sans-serif;-webkit-appearance:none;}
+.threshold-trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:1rem;}
+.thresh-mini{border-radius:var(--r);padding:10px;text-align:center;border:1.5px solid transparent;}
+.thresh-mini-pct{font-size:15px;font-weight:600;margin-bottom:1px;}
+.thresh-mini-label{font-size:10px;color:var(--text-muted);}
+.thresh-mini-factor{font-size:11px;font-weight:500;margin-top:3px;}
+.result-hero{border-radius:var(--rlg);padding:1.25rem 1rem;text-align:center;margin-bottom:2.5rem;}
+.result-label{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;opacity:.7;margin-bottom:5px;}
+.result-risk{font-family:'DM Sans',sans-serif;font-weight:600;font-size:clamp(1.3rem,4vw,1.7rem);line-height:1.2;margin-bottom:4px;}
+.result-desc{font-size:13px;opacity:.75;}
+.result-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:1.25rem;}
+.result-cell{border-radius:var(--r);padding:10px 8px;text-align:center;}
+.result-cell-pct{font-size:13px;font-weight:600;}
+.result-cell-needed{font-size:11px;color:var(--text-muted);margin-top:2px;}
+.result-cell-check{font-size:16px;margin-top:5px;}
+.med-section-title{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--gray-200);}
+.med-item{display:flex;gap:8px;padding:9px 0;border-bottom:1px solid var(--gray-100);align-items:flex-start;}
+.med-badge{font-size:10px;font-weight:600;padding:3px 7px;border-radius:5px;flex-shrink:0;margin-top:2px;}
+.med-badge.t3{background:var(--blue-pale);color:var(--navy-light);}
+.med-badge.t5{background:var(--amber-pale);color:var(--amber);}
+.med-badge.t10{background:var(--red-pale);color:var(--red);}
+.med-name{font-size:13px;font-weight:500;color:var(--navy);}
+.med-detail{font-size:11px;color:var(--text-muted);margin-top:1px;}
+.no-therapy{background:var(--green-pale);border-radius:var(--r);padding:1rem;font-size:13px;color:var(--green);font-weight:500;text-align:center;line-height:1.5;}
+.btn-primary{display:block;width:100%;min-height:52px;padding:12px 20px;font-size:16px;font-weight:500;font-family:'DM Sans',sans-serif;color:#fff;background:var(--green);border:none;border-radius:var(--r);cursor:pointer;-webkit-appearance:none;margin-top:1rem;}
+.btn-primary:active{opacity:.88;}
+.btn-primary:disabled{opacity:.45;cursor:not-allowed;}
+.btn-row{display:flex;gap:8px;margin-top:1rem;}
+.btn-row .btn-primary{margin-top:0;flex:1;}
+.btn-secondary{min-height:52px;padding:12px 16px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text-muted);background:#fff;border:1.5px solid var(--gray-300);border-radius:var(--r);cursor:pointer;-webkit-appearance:none;}
+.sidebar{display:flex;flex-direction:column;gap:1rem;}
+.info-card{background:#fff;border-radius:var(--rlg);box-shadow:var(--shadow);overflow:hidden;}
+.info-card-header{padding:.9rem 1.1rem .7rem;border-bottom:1px solid var(--gray-200);}
+.info-card-title{font-size:13px;font-weight:600;color:var(--navy);}
+.info-card-body{padding:.9rem 1.1rem;}
+.summary-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--gray-100);font-size:13px;}
+.summary-row:last-child{border-bottom:none;}
+.summary-key{color:var(--text-muted);}
+.summary-val{font-weight:500;color:var(--navy);}
+.method-step{display:flex;gap:9px;padding:6px 0;}
+.method-num{width:20px;height:20px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.method-text{font-size:12px;color:var(--text-muted);line-height:1.5;}
+.legend-row{display:flex;align-items:center;gap:7px;padding:4px 0;font-size:12px;color:var(--text-muted);}
+.legend-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.age-warning{background:var(--amber-pale);border:1px solid var(--amber);border-radius:var(--r);padding:8px 12px;font-size:13px;color:var(--amber);margin-top:8px;display:none;}
+.site-footer{background:var(--navy);color:rgba(255,255,255,.4);text-align:center;padding:1.25rem 1rem;font-size:11px;margin-top:2rem;}
+.site-footer strong{color:rgba(255,255,255,.7);}
+@media(max-width:767px){.sidebar{display:none;}}
+
+.btn-pdf{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:54px;padding:13px 20px;font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;color:#fff;background:#0d2137;border:none;border-radius:var(--r);cursor:pointer;-webkit-appearance:none;margin-top:12px;}
+.btn-pdf:active{opacity:.85;}
+.btn-pdf svg{width:19px;height:19px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;pointer-events:none;}
+.summary-box{display:none;margin-top:14px;border:1.5px solid var(--gray-300);border-radius:var(--rlg);overflow:hidden;background:#fff;}
+.summary-head{background:var(--navy);color:#fff;padding:12px 16px;}
+.summary-head-title{font-size:14px;font-weight:600;}
+.summary-head-sub{font-size:11px;color:rgba(255,255,255,.72);margin-top:2px;}
+.summary-head-meta{font-size:11px;color:rgba(255,255,255,.72);margin-top:6px;}
+.summary-body{padding:14px 16px 16px;}
+.summary-sec{font-size:12px;font-weight:600;color:#fff;background:var(--navy);border-radius:6px;padding:6px 10px;margin:1.25rem 0 .6rem;}
+.summary-sec:first-child{margin-top:0;}
+.summary-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:13px;padding:7px 10px;border:1px solid var(--gray-200);border-top:none;}
+.summary-row:first-of-type{border-top:1px solid var(--gray-200);}
+.summary-row.shade{background:var(--gray-100);}
+.summary-row-key{color:var(--text-muted);}
+.summary-row-val{color:var(--navy);font-weight:600;text-align:right;}
+.summary-rf-group{font-size:12px;font-weight:600;color:var(--teal);background:var(--teal-pale);border-radius:6px;padding:5px 10px;margin-top:.6rem;}
+.summary-rf-item{font-size:13px;color:var(--navy);padding:6px 10px 6px 22px;position:relative;border-bottom:1px solid var(--gray-200);}
+.summary-rf-item::before{content:"";position:absolute;left:10px;top:12px;width:6px;height:6px;border-radius:50%;background:var(--teal);}
+.summary-rf-item:last-child{border-bottom:none;}
+.summary-empty{font-size:13px;color:var(--text-muted);text-align:center;background:var(--gray-100);border-radius:var(--r);padding:12px;}
+.summary-band{border-radius:var(--r);border:1.5px solid;padding:12px;text-align:center;}
+.summary-band-label{font-size:11px;color:var(--text-muted);}
+.summary-band-value{font-size:17px;font-weight:700;margin-top:3px;}
+.summary-note{font-size:11px;color:var(--text-muted);text-align:center;margin-top:8px;line-height:1.5;}
+.summary-info{font-size:13px;line-height:1.6;color:var(--navy);background:var(--blue-pale);border:1.5px solid var(--navy);border-radius:var(--r);padding:12px;margin-top:12px;}
+.summary-info a{color:var(--teal);font-weight:600;}
+.summary-warn{font-size:13px;line-height:1.6;color:var(--amber);background:var(--amber-pale);border:1.5px solid var(--amber);border-radius:var(--r);padding:12px;margin-top:12px;}
+.summary-foot{background:var(--navy);color:rgba(255,255,255,.72);font-size:11px;text-align:center;padding:9px 16px;}
+.pdf-hint{font-size:11px;color:var(--text-muted);text-align:center;margin-top:5px;line-height:1.5;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="https://www.douv.de" target="_blank" rel="noopener" class="logo-wrap">
+      <div class="logo-img-bg">
+        <img src="https://douv.de/wp-content/uploads/2026/04/DOUV_Logo.svg" alt="DOUV Logo"
+             onerror="this.parentElement.innerHTML='<span style=\'font-size:15px;font-weight:700;color:var(--navy);letter-spacing:.05em;\'>DOUV</span>'">
+      </div>
+      <div class="logo-tagline">
+        <span class="logo-tagline-top">Ein Tool des</span>
+        <span class="logo-tagline-sub">Deutschen Orthopäden- und Unfallchirurgen-Verbandes e.V.</span>
+      </div>
+    </a>
+    <span class="header-badge">DVO Leitlinie 2023</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Frakturrisiko <em>verstehen</em></h1>
+    <p class="hero-sub">Lernen Sie, welche Faktoren das Risiko einer Osteoporose beeinflussen – in vier einfachen Schritten.</p>
+    <p style="font-size:16px;color:#3c6b4e;margin-top:.5rem;line-height:1.5;">Dieses Tool trainiert das Verständnis der DVO-Leitlinie Osteoporose an exemplarischen Fällen. Es stellt keine Diagnose, gibt keine Therapieempfehlung und keine Entscheidungsunterstützung – weder für Patientinnen und Patienten noch für Behandelnde. Es berechnet kein individuelles Risiko und verarbeitet keine personenbezogenen Daten.</p>
+  </div>
+</section>
+
+<div class="main-layout">
+  <div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-icon"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><path d="M9 12h6M9 16h4"/></svg></div>
+        <div><div class="card-title">Faktoren, die das Frakturrisiko beeinflussen</div><div class="card-subtitle">Auf Basis der DVO Leitlinie Osteoporose 2023</div></div>
+      </div>
+      <div class="card-body">
+
+        <div class="steps-nav">
+          <button class="step-btn active" id="nav1" type="button" onclick="goStep(1)"><span class="step-num">1</span><span>Fall</span></button>
+          <button class="step-btn" id="nav2" type="button" onclick="goStep(2)"><span class="step-num">2</span><span>Risikofaktoren</span></button>
+          <button class="step-btn" id="nav3" type="button" onclick="goStep(3)"><span class="step-num">3</span><span>Knochendichte</span></button>
+          <button class="step-btn" id="nav4" type="button" onclick="goStep(4)"><span class="step-num">4</span><span>Ergebnis</span></button>
+        </div>
+
+        <!-- STEP 1 -->
+        <div class="step-panel active" id="step1">
+          <div class="form-row" style="margin-bottom:1rem;">
+            <label class="form-label" for="pat-age">Alter (Jahre)</label>
+            <input class="form-input" type="number" id="pat-age" min="50" max="110" placeholder="z. B. 68" oninput="updatePatient()" onchange="updatePatient()" style="max-width:180px;font-size:20px;font-weight:600;text-align:center;">
+          </div>
+          <div class="form-row">
+            <label class="form-label">Geschlecht</label>
+            <div class="gender-group">
+              <button class="gender-btn active" id="btn-f" type="button" onclick="setGender('f')">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M12 12v8M9 17h6"/></svg>Frau
+              </button>
+              <button class="gender-btn" id="btn-m" type="button" onclick="setGender('m')">
+                <svg viewBox="0 0 24 24"><circle cx="10" cy="12" r="4"/><path d="M14 8l4-4M18 4h-4M18 4v4"/></svg>Mann
+              </button>
+            </div>
+          </div>
+          <div class="age-warning" id="age-warning">⚠ Kalkulator gültig für Frauen nach Menopause und Männer ab 50 Jahren.</div>
+          <button class="btn-primary" type="button" id="btn-weiter1" onclick="goStep(2)" disabled>Weiter → Risikofaktoren ›</button>
+          <div id="dob-hint" class="pdf-hint" style="color:var(--amber);">Bitte geben Sie ein Alter ein, um fortzufahren.</div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step-panel" id="step2">
+          <!-- chip2 entfernt -->
+          <p style="font-size:13px;color:var(--text-muted);margin-bottom:1rem;line-height:1.6;">Bitte wählen Sie aus der Liste Risikofaktoren aus, um zu sehen wie sie das Risiko einer Osteoporose beeinflussen. Sie können die Bereiche aufklappen und beliebig viele Punkte ankreuzen. Besprechen Sie später mit Ihrer Ärztin oder Ihrem Arzt, was die einzelnen Risikofaktoren bedeuten und ob welche auf Sie zutreffen.</p>
+          <div id="rf-container"></div>
+          <div class="factor-bar">
+            <div>
+              <div class="factor-bar-label">Risiko-Faktor aus Ihren Angaben</div>
+              <div class="factor-bar-val" id="factor-val">—</div>
+              <div class="factor-bar-formula" id="factor-formula">Noch keine Risikofaktoren gewählt</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0;">
+              <div style="font-size:11px;color:rgba(255,255,255,.5)">Bereiche</div>
+              <div style="font-size:20px;font-weight:500;" id="factor-groups">0 / 2</div>
+            </div>
+          </div>
+          <div class="btn-row">
+            <button class="btn-secondary" type="button" onclick="goStep(1)">‹ Zurück</button>
+            <button class="btn-primary" type="button" onclick="goStep(3)" style="margin-top:0;flex:1">Weiter → Knochendichte ›</button>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step-panel" id="step3">
+          <div class="form-row">
+            <label class="form-label">Möchten Sie wissen, wie das Ergebnis einer Knochendichtemessung die Risiken für eine Osteoporose beeinflusst?</label>
+            <div class="gender-group">
+              <button class="gender-btn" id="bmd-done-yes" type="button" onclick="setBmdDone(true)">Ja</button>
+              <button class="gender-btn" id="bmd-done-no" type="button" onclick="setBmdDone(false)">Nein</button>
+            </div>
+          </div>
+          <div class="form-row" id="bmd-known-row" style="display:none;">
+            <label class="form-label">Möchten Sie einen konkreten T-Wert eintragen?</label>
+            <div class="gender-group">
+              <button class="gender-btn" id="bmd-known-yes" type="button" onclick="setBmdKnown(true)">Ja</button>
+              <button class="gender-btn" id="bmd-known-no" type="button" onclick="setBmdKnown(false)">Nein</button>
+            </div>
+          </div>
+
+          <div id="tscore-block" style="display:none;margin-top:1.25rem;padding:1rem 1.1rem 1.1rem;border:1.5px solid var(--green);border-radius:var(--rlg);background:var(--green-pale);">
+            <div style="font-size:16px;font-weight:600;color:var(--navy);margin-bottom:4px;">Ergebnis einer Knochendichtemessung</div>
+            <div style="font-size:12.5px;color:var(--text-muted);line-height:1.5;margin-bottom:14px;">Tragen Sie hier einen T-Wert des Gesamtfemurs (Gesamthüfte) ein, um zu verstehen, wie das Ergebnis einer Knochendichtemessung das Risiko für eine Osteoporose beeinflusst.</div>
+
+            <label class="form-label" for="tscore-input" style="margin-bottom:6px;">T-Wert direkt eingeben</label>
+            <input class="form-input" type="number" id="tscore-input" step="0.1" min="-4" max="0.5" placeholder="z. B. −2,1" oninput="syncTscoreInput(this.value)" onchange="syncTscoreInput(this.value)" style="max-width:170px;font-size:18px;font-weight:600;text-align:center;">
+
+            <div style="display:flex;align-items:center;gap:10px;margin:16px 0 8px;">
+              <div style="flex:1;height:1px;background:var(--green-light);"></div>
+              <span style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;">oder mit dem Schieberegler</span>
+              <div style="flex:1;height:1px;background:var(--green-light);"></div>
+            </div>
+
+            <div class="slider-val" id="tscore-display"><span id="tscore-val">−2,0</span></div>
+            <input type="range" min="-40" max="0" step="1" value="-20" id="tscore-slider" oninput="updateTscore(this.value)" onchange="updateTscore(this.value)">
+            <div class="slider-labels"><span>−4,0</span><span>−3,0</span><span>−2,0</span><span>−1,0</span><span>0</span></div>
+            <div class="tscore-band">
+              <div style="background:#c0392b;flex:5"></div>
+              <div style="background:#e8a020;flex:15"></div>
+              <div style="background:#1a7a4a;flex:10"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--gray-500);margin-top:3px;margin-left:13px;margin-right:13px;">
+              <span>Osteoporose ≤−2,5</span><span>Osteopenie</span><span>Normal</span>
+            </div>
+          </div>
+
+          <div id="bmd-note" class="age-warning" style="display:none;">Ohne gemessenen Wert rechnen wir mit einem Durchschnittswert (T-Wert −2,0, entspricht etwa einem 65-jährigen Menschen). Eine echte Knochendichtemessung kann das Ergebnis verändern.</div>
+
+          <div class="btn-row">
+            <button class="btn-secondary" type="button" onclick="goStep(2)">‹ Zurück</button>
+            <button class="btn-primary" type="button" onclick="goStep(4)" style="margin-top:0;flex:1">Ergebnis anzeigen ›</button>
+          </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step-panel" id="step4">
+          <!-- chip4 entfernt -->
+          <div style="background:var(--blue-pale);border:1.5px solid var(--teal-light);border-radius:var(--r);padding:10px 14px;font-size:12px;color:var(--navy);line-height:1.6;margin-bottom:1rem;">
+            <strong>Wichtiger Hinweis:</strong> Dieses Tool trainiert das Verständnis der DVO-Leitlinie 2023 an exemplarischen Fällen. Es ist <strong>kein Medizinprodukt</strong>, stellt keine Diagnose, gibt keine Therapieempfehlung und <strong>keine Entscheidungsunterstützung</strong> (weder für Patienten noch für Behandelnde), und <strong>berechnet kein patientenindividuelles Risiko</strong>. Es werden <strong>keine personenbezogenen oder Gesundheitsdaten</strong> verarbeitet; alle Angaben verbleiben ausschließlich in Ihrem Browser.
+          </div>
+          <div class="result-hero" id="result-hero">
+            <div class="result-label">Risiko-Einordnung dieses Beispielfalls nach DVO-Leitlinie (3 Jahre)</div>
+            <div class="result-risk" id="result-risk">—</div>
+            <div class="result-desc" id="result-desc"></div>
+          </div>
+          <div id="med-container"></div>
+          <p style="font-size:11px;color:var(--text-muted);margin-top:1.25rem;line-height:1.6;">Quelle: DVO-Leitlinie Osteoporose 2023 · Diese Einschätzung ersetzt nicht das persönliche Gespräch mit Ihrer Ärztin oder Ihrem Arzt.</p>
+          <div class="btn-row" style="margin-top:12px;">
+            <button class="btn-pdf" type="button" id="btn-summary" onclick="toggleSummary()" style="margin-top:0;flex:1;background:var(--green);">
+              <svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span id="summary-lbl">Zusammenfassung anzeigen</span>
+            </button>
+          </div>
+          <p class="pdf-hint">Die Zusammenfassung wird direkt auf dieser Seite angezeigt – es wird keine Datei erzeugt, gespeichert oder versendet.</p>
+          <div class="summary-box" id="summary-box"></div>
+          <div class="btn-row" style="margin-top:10px;">
+            <button class="btn-secondary" type="button" onclick="goStep(3)">‹ Zurück</button>
+            <button class="btn-secondary" type="button" onclick="resetAll()">Neuer Fall</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <div class="info-card">
+      <div class="info-card-header"><div class="info-card-title">Falldaten</div></div>
+      <div class="info-card-body">
+        <div class="summary-row"><span class="summary-key">Alter</span><span class="summary-val" id="sum-age">—</span></div>
+        <div class="summary-row"><span class="summary-key">Geschlecht</span><span class="summary-val" id="sum-gender">Frau</span></div>
+        <div class="summary-row"><span class="summary-key">Risikofaktoren</span><span class="summary-val" id="sum-rf">0 gewählt</span></div>
+        <div class="summary-row"><span class="summary-key">Knochendichte (T-Wert)</span><span class="summary-val" id="sum-tscore">—</span></div>
+        <div class="summary-row"><span class="summary-key">Risiko-Faktor</span><span class="summary-val" id="sum-s1">—</span></div>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-header"><div class="info-card-title">Ablauf</div></div>
+      <div class="info-card-body">
+        <div class="method-step"><div class="method-num">1</div><div class="method-text"><strong>Basisdaten</strong> – Alter, Geschlecht</div></div>
+        <div class="method-step"><div class="method-num">2</div><div class="method-text"><strong>Risikofaktoren</strong> – beispielhaft auswählen</div></div>
+        <div class="method-step"><div class="method-num">3</div><div class="method-text"><strong>Knochendichte</strong> – beispielhaften Messwert eintragen</div></div>
+        <div class="method-step"><div class="method-num">✓</div><div class="method-text">Einschätzung zum allgemeinen Risiko erhalten</div></div>
+      </div>
+    </div>
+    <!-- Nur in Schritt 2 sichtbar (siehe goStep) -->
+    <div class="info-card" id="grad-note-card" style="display:none;">
+      <div class="info-card-header"><div class="info-card-title">Hinweis zu den Faktoren</div></div>
+      <div class="info-card-body">
+        <p style="font-size:12px;color:var(--text-muted);line-height:1.6;margin:0;">
+          Die Risikogradienten der einzelnen Risikofaktoren unterliegen über die Altersspanne
+          von 50 bis 90 Jahren einer gewissen Varianz. Aus Vereinfachungsgründen wird in den
+          Beispielrechnungen – wie in der DVO-Leitlinie vorgesehen – der mittlere Wert für
+          70 Jahre verwendet. Besonders in den Altersrandbereichen kann es dadurch zu
+          abweichenden Ergebnissen kommen.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <strong>Osteoporose-Frakturrisiko</strong> · Bildungstool zur S3-Leitlinie DVO 2023 · Ein Tool des <a href="https://www.douv.de" target="_blank" rel="noopener" style="color:rgba(255,255,255,.6);text-decoration:none;">Deutschen Orthopäden- und Unfallchirurgen-Verbandes e.V. (DOUV)</a><br>
+  Bildungs- und Trainingsangebot zur DVO-Leitlinie an Beispielfällen · Keine Entscheidungsunterstützung · Kein Medizinprodukt (EU-VO 2017/745) · Keine Verarbeitung personenbezogener Daten
+</footer>
+
+<script src="calc.js"></script>
+<script>
+var S={gender:'f',age:0,dob:null,tscore:-2.0,sel:{},open:{},bmdDone:null,bmdKnown:null};
+
+// ─── Berechnungskern & medizinische Stammdaten kommen aus calc.js (window.DVO) ───
+// EINZIGE QUELLE DER WAHRHEIT. RF, TABLES, T_COLS, AGE_ROWS, interp, getThresh,
+// getGrad und computeS1 sind hier KEINE Kopie mehr, sondern dünne Wrapper bzw.
+// Aliase auf DVO. Logikänderungen ausschließlich in calc.js + node test.js.
+var RF=DVO.RF;
+
+// Patienten-Version: KEINE Medikamenten-/Substanz- oder Therapieempfehlungen mehr.
+// Die früheren Empfehlungstexte je Schwelle (REC_TXT) und der separate Disclaimer-Text
+// wurden aus der Bildschirmansicht entfernt – Schritt 4 zeigt nur noch die allgemeine
+// Risiko-Einordnung plus einen Verweis auf die ärztliche Beratung (reines Bildungsangebot).
+
+// ─── Altersabhängiger durchschnittlicher T-Wert (Gesamthüfte) ───
+// Quelle: Mittelwerte aus einer großen Bevölkerungsstudie (vom Auftraggeber geliefert).
+// Wird NUR als Orientierung genutzt, wenn keine eigene Knochendichtemessung vorliegt.
+// KEINE Vorhersagekraft für die einzelne Person – ersetzt keine echte Messung.
+var AVG_TSCORE=[[45,-0.6],[50,-0.8],[55,-1.0],[60,-1.2],[65,-1.5],[70,-1.8],[75,-2.0],[80,-2.3],[85,-2.5],[90,-2.7]];
+function avgTscoreForAge(age){
+  var a=Math.min(Math.max(age||62,45),90);
+  for(var i=0;i<AVG_TSCORE.length-1;i++){
+    var x0=AVG_TSCORE[i][0],x1=AVG_TSCORE[i+1][0];
+    if(a>=x0&&a<=x1){
+      var y0=AVG_TSCORE[i][1],y1=AVG_TSCORE[i+1][1];
+      return Math.round((y0+(y1-y0)*(a-x0)/(x1-x0))*10)/10; // lineare Interpolation, 1 Nachkommastelle
+    }
+  }
+  return AVG_TSCORE[AVG_TSCORE.length-1][1];
+}
+function defaultTscore(){return avgTscoreForAge(S.age);}
+function fmtTscore(ts){return (ts<=0?'−':'')+Math.abs(ts).toFixed(1).replace('.',',');} // z.B. -1.8 -> "−1,8"
+
+// Hinweistext (HTML), wenn ohne eigene Messung mit dem altersabhängigen Mittelwert gerechnet wird.
+function bmdNoteHTML(){
+  var ts=defaultTscore();
+  return 'Wenn Sie keinen Wert eingeben, rechnen wir zur Orientierung mit dem '+
+    '<strong>durchschnittlichen T-Wert für das angegebene Alter</strong> (ca. '+fmtTscore(ts)+
+    ' bei '+(S.age||'–')+' Jahren). Dieser Durchschnittswert hat <strong>keinerlei Vorhersagekraft</strong> '+
+    'für Sie persönlich – Ihre persönliche Knochendichte lässt sich nur durch eine individuelle Messung bestimmen. '+
+    'Sprechen Sie mit Ihrer Ärztin oder Ihrem Arzt, ob eine Knochendichtemessung bei Ihnen sinnvoll ist.';
+}
+
+function bmdAvailable(){return S.bmdDone===true&&S.bmdKnown===true;}
+
+// T_COLS, AGE_ROWS und TABLES (Schwellentabellen) liegen jetzt in calc.js.
+
+function g(id){return document.getElementById(id);}
+function t(id,v){var e=g(id);if(e)e.textContent=v;}
+
+function calcAge(dob){
+  if(!dob)return null;
+  var today=new Date(),b=new Date(dob),a=today.getFullYear()-b.getFullYear();
+  var m=today.getMonth()-b.getMonth();
+  if(m<0||(m===0&&today.getDate()<b.getDate()))a--;
+  return a;
+}
+
+// ─── Dünne Wrapper auf den Berechnungskern in calc.js (window.DVO) ───
+// Sie übersetzen nur den UI-Zustand S in die parameterbasierten DVO-Funktionen.
+// KEINE eigene Rechenlogik mehr hier.
+
+function getThresh(level){
+  return DVO.getThresh(S.gender,level,S.age,S.tscore);
+}
+
+function getGrad(item){
+  return DVO.getGrad(item,S.age);
+}
+
+function computeS1(){
+  var r=DVO.computeS1(S.gender,S.age,S.sel);
+  var formula;
+  if(!r.top.length) formula='Noch keine Risikofaktoren gewählt';
+  else if(r.top.length===1) formula='Ein Risikobereich berücksichtigt';
+  else formula=r.top[0].item.label.substring(0,22)+'… × '+r.top[1].item.label.substring(0,22)+'…';
+  return{factor:r.factor,formula:formula,top:r.top};
+}
+
+function updatePatient(){
+  var ageVal=parseInt(g('pat-age').value,10);
+  S.age=isNaN(ageVal)||ageVal<1?0:ageVal;
+  g('age-warning').style.display=(S.age>0&&S.age<50)?'block':'none';
+  var hasAge=S.age>=50;
+  g('btn-weiter1').disabled=!hasAge;
+  g('dob-hint').style.display=hasAge?'none':'block';
+  updateSummary();renderThreshMini();
+}
+
+function setGender(gv){
+  S.gender=gv;
+  g('btn-f').className='gender-btn'+(gv==='f'?' active':'');
+  g('btn-m').className='gender-btn'+(gv==='m'?' active':'');
+  renderRF();renderThreshMini();updateSummary();
+}
+
+// ─── Schritt 3: Knochendichtemessung (ja/nein) ───
+// Schieberegler nur sichtbar, wenn BEIDE Fragen mit "ja" beantwortet sind.
+// Sonst: kein T-Wert → Berechnung mit Durchschnittswert −2,0 (im Hinweis erklärt).
+function setBmdDone(v){
+  S.bmdDone=v;
+  if(v===false)S.bmdKnown=null;   // 2. Frage entfällt, wenn keine Messung
+  updateBmdUI();
+}
+function setBmdKnown(v){
+  S.bmdKnown=v;
+  updateBmdUI();
+}
+function updateBmdUI(){
+  g('bmd-done-yes').className='gender-btn'+(S.bmdDone===true?' active':'');
+  g('bmd-done-no').className='gender-btn'+(S.bmdDone===false?' active':'');
+  g('bmd-known-row').style.display=(S.bmdDone===true)?'block':'none';
+  g('bmd-known-yes').className='gender-btn'+(S.bmdKnown===true?' active':'');
+  g('bmd-known-no').className='gender-btn'+(S.bmdKnown===false?' active':'');
+  var avail=bmdAvailable();
+  g('tscore-block').style.display=avail?'block':'none';
+  // Hinweis auf altersabhängigen Durchschnittswert nur zeigen, wenn ein "nein" den Regler ausblendet
+  var noVal=(S.bmdDone===false)||(S.bmdDone===true&&S.bmdKnown===false);
+  g('bmd-note').style.display=noVal?'block':'none';
+  if(avail){S.tscore=parseInt(g('tscore-slider').value,10)/10;}
+  else{S.tscore=defaultTscore();g('bmd-note').innerHTML=bmdNoteHTML();}
+  updateSummary();
+}
+
+function buildChip(id){
+  var el=g(id);if(!el)return;
+  el.innerHTML='<span class="patient-chip-tag">'+(S.gender==='f'?'Frau':'Mann')+'</span>'+
+    '<span class="patient-chip-tag">'+(S.age?S.age+' J.':'—')+'</span>';
+}
+
+function toggleGroup(groupName){
+  S.open[groupName]=S.open[groupName]===false?true:false;
+  renderRF();
+}
+
+function toggleRF(itemId){
+  S.sel[itemId]=!S.sel[itemId];
+  renderRF();
+}
+
+function renderRF(){
+  var c=g('rf-container');if(!c)return;
+  var html='';
+  RF.forEach(function(grp){
+    var selCount=grp.items.filter(function(i){return S.sel[i.id];}).length;
+    var isOpen=S.open[grp.group]!==false;
+    var enc=encodeURIComponent(grp.group);
+    html+='<div class="rf-group">';
+    html+='<div class="rf-group-header" onclick="toggleGroup(decodeURIComponent(\''+enc+'\'))">';
+    html+='<div style="display:flex;align-items:center;"><span class="rf-group-name">'+grp.group+'</span>';
+    if(selCount)html+='<span class="rf-badge">'+selCount+'</span>';
+    html+='</div>';
+    html+='<svg class="rf-chevron'+(isOpen?' open':'')+'" viewBox="0 0 24 24" style="transform:'+(isOpen?'rotate(180deg)':'')+'"><polyline points="6 9 12 15 18 9"/></svg>';
+    html+='</div>';
+    html+='<div class="rf-items'+(isOpen?' open':'')+'">';
+    grp.items.forEach(function(item){
+      html+='<div class="rf-item'+(S.sel[item.id]?' selected':'')+'" onclick="toggleRF(\''+item.id+'\')">';
+      html+='<div class="rf-item-check"></div>';
+      html+='<span class="rf-item-label">'+item.label+'</span>';
+      html+='<span class="rf-item-grad">×'+getGrad(item).toFixed(1)+'</span>';
+      html+='</div>';
+    });
+    html+='</div></div>';
+  });
+  c.innerHTML=html;
+  updateFactorBar();
+}
+
+function updateFactorBar(){
+  var r=computeS1();
+  t('factor-val',r.top.length?r.factor.toFixed(2):'—');
+  t('factor-formula',r.formula);
+  t('factor-groups',Math.min(r.top.length,2)+' / 2');
+  updateSummary();
+}
+
+function renderThreshMini(){
+  var c=g('thresh-mini-display');if(!c)return;
+  var data=[[10,'var(--red)','var(--red-pale)'],[5,'var(--amber)','var(--amber-pale)'],[3,'var(--navy-light)','var(--blue-pale)']];
+  c.innerHTML=data.map(function(d){
+    var pct=d[0],col=d[1],bg=d[2],v=getThresh(pct);
+    return'<div class="thresh-mini" style="color:'+col+';background:'+bg+';"><div class="thresh-mini-pct" style="color:'+col+'">'+pct+'%</div><div class="thresh-mini-label">Schwelle</div><div class="thresh-mini-factor" style="color:'+col+'">'+(v?'≥ '+v.toFixed(1):'—')+'</div></div>';
+  }).join('');
+}
+
+function updateTscore(v){
+  var ts=parseInt(v,10)/10;S.tscore=ts;
+  t('tscore-val',fmtTscore(ts));
+  var ni=g('tscore-input');if(ni&&document.activeElement!==ni)ni.value=ts.toFixed(1);
+  g('tscore-display').style.color=ts<=-2.5?'var(--red)':ts<=-1?'var(--amber)':'var(--green)';
+  renderThreshMini();updateSummary();
+}
+
+function syncTscoreInput(v){
+  var ts=parseFloat(String(v).replace(',','.'));if(isNaN(ts))return; // Komma- oder Punkteingabe erlauben
+  var c=Math.min(Math.max(ts,-4),0);
+  S.tscore=c;
+  g('tscore-slider').value=Math.round(c*10);
+  t('tscore-val',fmtTscore(c));
+  g('tscore-display').style.color=c<=-2.5?'var(--red)':c<=-1?'var(--amber)':'var(--green)';
+  renderThreshMini();updateSummary();
+}
+
+function renderResult(){
+  hideSummary();
+  if(!bmdAvailable())S.tscore=defaultTscore();
+  var r=computeS1(),factor=r.factor;
+  var f10=getThresh(10),f5=getThresh(5),f3=getThresh(3);
+  var hit10=factor>=(f10||Infinity),hit5=factor>=(f5||Infinity),hit3=factor>=(f3||Infinity);
+  var reached=hit10?10:hit5?5:hit3?3:0;
+
+  // Ergebnis-Banner: patiententaugliche Risiko-Einordnung (keine Therapieempfehlung)
+  var cfgs={
+    10:{label:'Hohes Risiko – über 10 %',bg:'var(--red-pale)',col:'var(--red)'},
+    5:{label:'Erhöhtes Risiko – 5 bis 10 %',bg:'var(--amber-pale)',col:'var(--amber)'},
+    3:{label:'Grenzwertiges Risiko – 3 bis 5 %',bg:'var(--blue-pale)',col:'var(--navy-light)'},
+    0:{label:'Niedriges Risiko – unter 3 %',bg:'var(--green-pale)',col:'var(--green)'}
+  };
+  var cfg=cfgs[reached];
+  var hero=g('result-hero');hero.style.background=cfg.bg;hero.style.color=cfg.col;
+  t('result-risk',cfg.label);
+  t('result-desc','So ordnet die DVO-Leitlinie das 3-Jahres-Frakturrisiko für diesen Beispielfall ein. Dies ist keine Aussage über Ihr persönliches Risiko.');
+
+  // Hinweis-Block: ggf. Durchschnittswert-Hinweis + Verweis auf ärztliche Beratung.
+  // Therapieempfehlungen (frühere Kästchen "Unter 3 / Ab 3 / Ab 5 / Ab 10 %") wurden
+  // bewusst entfernt – reines Bildungsangebot, kein Medizinprodukt.
+  var mc=g('med-container');
+  var html='';
+  if(!bmdAvailable()){
+    html+='<div class="age-warning" style="display:block;margin-top:1rem;">'+bmdNoteHTML()+'</div>';
+  }
+  html+='<div class="no-therapy" style="background:var(--blue-pale);color:var(--navy);text-align:left;font-weight:400;line-height:1.6;margin-top:1rem;">'+
+    '<strong>Möchten Sie etwas über Ihr persönliches Osteoporoserisiko und die Therapiemöglichkeiten erfahren?</strong><br>'+
+    'Setzen Sie sich mit Ihrer Hausärztin, Ihrem Hausarzt oder mit einer orthopädischen Praxis in Verbindung. Nur dort kann eine Diagnose gestellt werden und ein individueller Therapieplan festgelegt werden. Es handelt sich bei diesem Tool um ein reines Bildungsangebot, das über das Krankheitsbild der Osteoporose und die Risikofaktoren informieren soll. Basisinformationen zu Grundlagen, Diagnostik und Therapie einer Osteoporose finden Sie auch auf <a href="https://www.osteoporose-verstehen.de" target="_blank" rel="noopener" style="color:var(--teal);font-weight:600;">www.osteoporose-verstehen.de</a>.</div>';
+  mc.innerHTML=html;
+}
+
+function updateSummary(){
+  t('sum-age',S.age>=50?S.age+' Jahre':'—');
+  t('sum-gender',S.gender==='f'?'Frau':'Mann');
+  var selCount=Object.values(S.sel).filter(Boolean).length;
+  t('sum-rf',selCount+' gewählt');
+  t('sum-tscore',S.age>=50?(bmdAvailable()?fmtTscore(S.tscore):('ca. '+fmtTscore(defaultTscore())+' (Orientierung)')):'—');
+  var r=computeS1();
+  t('sum-s1',r.top.length?r.factor.toFixed(2):'—');
+}
+
+function goStep(n){
+  [1,2,3,4].forEach(function(i){
+    var panel=g('step'+i),btn=g('nav'+i);
+    if(panel)panel.className='step-panel'+(i===n?' active':'');
+    if(btn)btn.className='step-btn'+(i===n?' active':i<n?' done':'');
+  });
+  if(n===2){buildChip('chip2');renderRF();}
+  if(n===3){buildChip('chip3');updateBmdUI();}
+  if(n===4){buildChip('chip4');renderResult();}
+  // Hinweis zur Alters-Varianz der Risikogradienten: nur in Schritt 2 (Risikofaktoren)
+  var gn=g('grad-note-card'); if(gn)gn.style.display=(n===2)?'block':'none';
+  var card=document.querySelector('.card');
+  if(card&&window.innerWidth<768){
+    setTimeout(function(){card.scrollIntoView({behavior:'smooth',block:'start'});},80);
+  }
+}
+
+
+/* ── Zusammenfassung auf der Seite ──────────────────────────────────────────
+   Die reduzierte Variante erzeugt kein PDF (Praxen ohne Download/Versand).
+   buildSummaryHTML() zeigt dieselben Inhalte wie zuvor der PDF-Export:
+   Basisdaten, ausgewaehlte Risikofaktoren, Risiko-Einordnung, Hinweise.      */
+function escHtml(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function buildSummaryHTML(){
+  if(!bmdAvailable())S.tscore=defaultTscore();
+  var dateStr=new Date().toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'});
+
+  /* Kopf */
+  var h='<div class="summary-head">'+
+    '<div class="summary-head-title">Osteoporose – Frakturrisiko</div>'+
+    '<div class="summary-head-sub">Beispielfall nach der DVO-Leitlinie 2023</div>'+
+    '<div class="summary-head-meta">Erstellt: '+dateStr+' · DOUV</div>'+
+  '</div><div class="summary-body">';
+
+  /* 1. Basisdaten */
+  h+='<div class="summary-sec">1. Basisdaten</div>';
+  function row(key,val,shade){
+    return '<div class="summary-row'+(shade?' shade':'')+'">'+
+      '<span class="summary-row-key">'+escHtml(key)+'</span>'+
+      '<span class="summary-row-val">'+escHtml(val)+'</span></div>';
+  }
+  h+=row('Alter',S.age+' Jahre',false);
+  h+=row('Geschlecht',S.gender==='f'?'Frau':'Mann',false);
+  h+=row('Knochendichtemessung',
+         bmdAvailable()?('liegt vor (T-Wert '+fmtTscore(S.tscore)+')')
+                       :('liegt nicht vor (Orientierung: T-Wert '+fmtTscore(S.tscore)+')'),true);
+
+  /* 2. Ausgewaehlte Risikofaktoren */
+  var selByGroup=[];
+  RF.forEach(function(grp){
+    var sel=grp.items.filter(function(i){return S.sel[i.id];});
+    if(sel.length)selByGroup.push({group:grp.group,items:sel});
+  });
+  h+='<div class="summary-sec">2. Ausgewählte Risikofaktoren</div>';
+  if(!selByGroup.length){
+    h+='<div class="summary-empty">Keine Risikofaktoren ausgewählt</div>';
+  } else {
+    selByGroup.forEach(function(grp){
+      h+='<div class="summary-rf-group">'+escHtml(grp.group)+'</div>';
+      grp.items.forEach(function(item){
+        h+='<div class="summary-rf-item">'+escHtml(item.label)+'</div>';
+      });
+    });
+  }
+
+  /* 3. Risiko-Einordnung */
+  var factor=computeS1().factor;
+  var f10=getThresh(10),f5=getThresh(5),f3=getThresh(3);
+  var reached=factor>=(f10||Infinity)?10:factor>=(f5||Infinity)?5:factor>=(f3||Infinity)?3:0;
+  var bandCfg={
+    10:{label:'Hohes Risiko – über 10 %',bg:'var(--red-pale)',col:'var(--red)'},
+    5: {label:'Erhöhtes Risiko – 5 bis 10 %',bg:'var(--amber-pale)',col:'var(--amber)'},
+    3: {label:'Grenzwertiges Risiko – 3 bis 5 %',bg:'var(--blue-pale)',col:'var(--navy-light)'},
+    0: {label:'Niedriges Risiko – unter 3 %',bg:'var(--green-pale)',col:'var(--green)'}
+  };
+  var bc=bandCfg[reached];
+  h+='<div class="summary-sec">3. Risiko-Einordnung dieses Beispielfalls</div>';
+  h+='<div class="summary-band" style="background:'+bc.bg+';border-color:'+bc.col+';">'+
+       '<div class="summary-band-label">3-Jahres-Frakturrisiko dieses Beispielfalls nach DVO-Leitlinie</div>'+
+       '<div class="summary-band-value" style="color:'+bc.col+';">'+bc.label+'</div>'+
+     '</div>';
+  h+='<div class="summary-note">Exemplarischer Fall zur DVO-Leitlinie – keine Aussage über Ihr persönliches Risiko.</div>';
+
+  /* Hinweis: ohne Knochendichtemessung wird mit dem Altersdurchschnitt gerechnet */
+  if(!bmdAvailable()){
+    h+='<div class="summary-warn"><strong>Hinweis:</strong> Da kein Wert einer Knochendichtemessung angegeben wurde, '+
+       'wird in dem Beispiel das Risiko mit dem durchschnittlichen T-Wert für das angegebene Alter (ca. '+
+       fmtTscore(S.tscore)+' bei '+S.age+' Jahren) berechnet. Dieser Durchschnittswert hat keinerlei Vorhersagekraft – '+
+       'die Knochendichte lässt sich nur durch eine individuelle Messung bestimmen.</div>';
+  }
+
+  /* Verweis auf aerztliche Beratung */
+  h+='<div class="summary-info"><strong>Möchten Sie etwas über Ihr persönliches Osteoporoserisiko und die '+
+     'Therapiemöglichkeiten erfahren?</strong> Setzen Sie sich mit Ihrer Hausärztin, Ihrem Hausarzt oder mit einer '+
+     'orthopädischen Praxis in Verbindung. Nur dort kann eine Diagnose gestellt werden und ein individueller '+
+     'Therapieplan festgelegt werden. Es handelt sich bei diesem Tool um ein reines Bildungsangebot, das über das '+
+     'Krankheitsbild der Osteoporose und die Risikofaktoren informieren soll. Basisinformationen zu Grundlagen, '+
+     'Diagnostik und Therapie einer Osteoporose finden Sie auch auf '+
+     '<a href="https://www.osteoporose-verstehen.de" target="_blank" rel="noopener">www.osteoporose-verstehen.de</a>.</div>';
+
+  h+='</div><div class="summary-foot">Bildungstool zur DVO-Leitlinie Osteoporose 2023 – ersetzt keine ärztliche Beratung</div>';
+  return h;
+}
+
+function toggleSummary(){
+  var box=g('summary-box'),lbl=g('summary-lbl');
+  if(box.style.display==='block'){
+    box.style.display='none';box.innerHTML='';
+    lbl.textContent='Zusammenfassung anzeigen';
+    return;
+  }
+  box.innerHTML=buildSummaryHTML();
+  box.style.display='block';
+  lbl.textContent='Zusammenfassung ausblenden';
+  setTimeout(function(){box.scrollIntoView({behavior:'smooth',block:'start'});},60);
+}
+
+function hideSummary(){
+  var box=g('summary-box'),lbl=g('summary-lbl');
+  if(!box)return;
+  box.style.display='none';box.innerHTML='';
+  if(lbl)lbl.textContent='Zusammenfassung anzeigen';
+}
+
+/* "Neuer Fall": kompletter Reset von Zustand UND Oberflaeche.
+   Die Aktualisierung laeuft bewusst ueber die normalen Update-Funktionen,
+   damit jede Teilansicht denselben Weg nimmt wie bei einer Nutzereingabe. */
+function resetAll(){
+  S={gender:'f',age:0,dob:null,tscore:-2.0,sel:{},open:{},bmdDone:null,bmdKnown:null};
+  g('pat-age').value='';
+  g('tscore-input').value='';
+  syncTscoreInput(-2.0);                                          // Regler, Wertanzeige und Farbe
+  g('btn-f').className='gender-btn active';g('btn-m').className='gender-btn';
+  hideSummary();                                                  // ggf. offene Zusammenfassung
+  updateBmdUI();                                                  // Ja/Nein-Buttons, Regler, Hinweis
+  renderRF();                                                     // Auswahl + Faktor-Balken
+  updatePatient();                                                // Alters-Hinweise, Weiter-Button
+  goStep(1);
+}
+
+updateBmdUI();
+updateSummary();
+renderThreshMini();
+</script>
+</body>
+</html>
