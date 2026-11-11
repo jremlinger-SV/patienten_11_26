@@ -174,7 +174,14 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;heigh
 .summary-row-key{color:var(--text-muted);}
 .summary-row-val{color:var(--navy);font-weight:600;text-align:right;}
 .summary-rf-group{font-size:12px;font-weight:600;color:var(--teal);background:var(--teal-pale);border-radius:6px;padding:5px 10px;margin-top:.6rem;}
-.summary-rf-item{font-size:13px;color:var(--navy);padding:6px 10px 6px 22px;position:relative;border-bottom:1px solid var(--gray-200);}
+.summary-rf-item{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:13px;color:var(--navy);padding:6px 10px 6px 22px;position:relative;border-bottom:1px solid var(--gray-200);}
+.summary-rf-label{flex:1;line-height:1.45;}
+.summary-rf-grad{flex-shrink:0;font-size:11px;font-weight:600;color:var(--navy-light);background:var(--blue-pale);padding:3px 8px;border-radius:5px;white-space:nowrap;}
+.summary-rf-legend{font-size:11px;color:var(--text-muted);line-height:1.5;margin-top:6px;}
+.summary-total{display:flex;align-items:baseline;justify-content:space-between;gap:12px;background:var(--navy);color:#fff;border-radius:var(--r);padding:10px 14px;margin-top:10px;}
+.summary-total-key{font-size:12px;color:rgba(255,255,255,.78);line-height:1.4;}
+.summary-total-val{font-size:22px;font-weight:700;flex-shrink:0;}
+.summary-total-note{font-size:11px;color:var(--text-muted);line-height:1.5;margin-top:6px;}
 .summary-rf-item::before{content:"";position:absolute;left:10px;top:12px;width:6px;height:6px;border-radius:50%;background:var(--teal);}
 .summary-rf-item:last-child{border-bottom:none;}
 .summary-empty{font-size:13px;color:var(--text-muted);text-align:center;background:var(--gray-100);border-radius:var(--r);padding:12px;}
@@ -430,6 +437,8 @@ function avgTscoreForAge(age){
   return AVG_TSCORE[AVG_TSCORE.length-1][1];
 }
 function defaultTscore(){return avgTscoreForAge(S.age);}
+function fmtGrad(v){return v.toFixed(1).replace('.',',');}    // Risikogradient:  2.9  -> "2,9"
+function fmtFactor(v){return v.toFixed(2).replace('.',',');}  // Gesamtfaktor:    7.25 -> "7,25"
 function fmtTscore(ts){return (ts<=0?'−':'')+Math.abs(ts).toFixed(1).replace('.',',');} // z.B. -1.8 -> "−1,8"
 
 // Hinweistext (HTML), wenn ohne eigene Messung mit dem altersabhängigen Mittelwert gerechnet wird.
@@ -557,8 +566,8 @@ function renderRF(){
     grp.items.forEach(function(item){
       html+='<div class="rf-item'+(S.sel[item.id]?' selected':'')+'" onclick="toggleRF(\''+item.id+'\')">';
       html+='<div class="rf-item-check"></div>';
-      html+='<span class="rf-item-label">'+item.label+'</span>';
-      html+='<span class="rf-item-grad">×'+getGrad(item).toFixed(1)+'</span>';
+      html+='<span class="rf-item-label">'+rfLabel(item)+'</span>';
+      html+='<span class="rf-item-grad">×'+fmtGrad(getGrad(item))+'</span>';
       html+='</div>';
     });
     html+='</div></div>';
@@ -569,7 +578,7 @@ function renderRF(){
 
 function updateFactorBar(){
   var r=computeS1();
-  t('factor-val',r.top.length?r.factor.toFixed(2):'—');
+  t('factor-val',r.top.length?fmtFactor(r.factor):'—');
   t('factor-formula',r.formula);
   t('factor-groups',Math.min(r.top.length,2)+' / 2');
   updateSummary();
@@ -643,7 +652,7 @@ function updateSummary(){
   t('sum-rf',selCount+' gewählt');
   t('sum-tscore',S.age>=50?(bmdAvailable()?fmtTscore(S.tscore):('ca. '+fmtTscore(defaultTscore())+' (Orientierung)')):'—');
   var r=computeS1();
-  t('sum-s1',r.top.length?r.factor.toFixed(2):'—');
+  t('sum-s1',r.top.length?fmtFactor(r.factor):'—');
 }
 
 function goStep(n){
@@ -668,6 +677,16 @@ function goStep(n){
    Die reduzierte Variante erzeugt kein PDF (Praxen ohne Download/Versand).
    buildSummaryHTML() zeigt dieselben Inhalte wie zuvor der PDF-Export:
    Basisdaten, ausgewaehlte Risikofaktoren, Risiko-Einordnung, Hinweise.      */
+/* Erläuterungen zu Fachbegriffen für Laien. Bewusst hier und NICHT in calc.js:
+   der Rechenkern bleibt mit der Arztversion identisch. */
+var RF_NOTE={
+  mgus:'Veränderung der Eiweißbildung im Knochenmark, z. B. Plasmozytom'
+};
+function rfLabel(item){
+  var note=RF_NOTE[item.id];
+  return note?item.label+' ('+note+')':item.label;
+}
+
 function escHtml(s){
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
@@ -702,6 +721,7 @@ function buildSummaryHTML(){
     var sel=grp.items.filter(function(i){return S.sel[i.id];});
     if(sel.length)selByGroup.push({group:grp.group,items:sel});
   });
+  var r1=computeS1(),factor=r1.factor;
   h+='<div class="summary-sec">2. Ausgewählte Risikofaktoren</div>';
   if(!selByGroup.length){
     h+='<div class="summary-empty">Keine Risikofaktoren ausgewählt</div>';
@@ -709,13 +729,44 @@ function buildSummaryHTML(){
     selByGroup.forEach(function(grp){
       h+='<div class="summary-rf-group">'+escHtml(grp.group)+'</div>';
       grp.items.forEach(function(item){
-        h+='<div class="summary-rf-item">'+escHtml(item.label)+'</div>';
+        h+='<div class="summary-rf-item">'+
+             '<span class="summary-rf-label">'+escHtml(rfLabel(item))+'</span>'+
+             '<span class="summary-rf-grad">× '+fmtGrad(getGrad(item))+'</span>'+
+           '</div>';
       });
     });
   }
 
+  /* Gesamt-Risiko-Faktor: derselbe Wert wie die Faktor-Leiste in Schritt 2.
+     Die Erläuterung ist wichtig, weil nach DVO-Leitlinie nur die beiden
+     stärksten Bereiche multipliziert werden - die Liste oben ergibt also
+     nicht rechnerisch den Gesamtwert. */
+  h+='<div class="summary-total">'+
+       '<span class="summary-total-key">Gesamt-Risiko-Faktor aus Ihren Angaben</span>'+
+       '<span class="summary-total-val">'+(r1.top.length?fmtFactor(factor):'—')+'</span>'+
+     '</div>';
+  var tNote;
+  if(!r1.top.length){
+    tNote='Ohne ausgewählte Risikofaktoren wird kein Faktor gebildet.';
+  } else if(r1.top.length===1){
+    tNote='Berücksichtigt ist ein Risikobereich: '+escHtml(r1.top[0].item.label)+
+          ' (× '+fmtGrad(r1.top[0].grad)+').';
+  } else {
+    tNote='Nach DVO-Leitlinie werden die beiden stärksten Bereiche multipliziert: '+
+          escHtml(r1.top[0].item.label)+' (× '+fmtGrad(r1.top[0].grad)+') × '+
+          escHtml(r1.top[1].item.label)+' (× '+fmtGrad(r1.top[1].grad)+').';
+    if(selByGroup.length>2){
+      tNote+=' Weitere ausgewählte Bereiche gehen nicht zusätzlich in die Rechnung ein.';
+    }
+  }
+  h+='<div class="summary-total-note">'+tNote+'</div>';
+  if(selByGroup.length){
+    h+='<div class="summary-rf-legend">× = Risikogradient nach DVO-Leitlinie '+
+       '(mittlerer Wert für 70 Jahre). Maßgeblich ist nicht der einzelne Faktor, '+
+       'sondern die Gesamteinschätzung.</div>';
+  }
+
   /* 3. Risiko-Einordnung */
-  var factor=computeS1().factor;
   var f10=getThresh(10),f5=getThresh(5),f3=getThresh(3);
   var reached=factor>=(f10||Infinity)?10:factor>=(f5||Infinity)?5:factor>=(f3||Infinity)?3:0;
   var bandCfg={
@@ -740,7 +791,7 @@ function buildSummaryHTML(){
        'die Knochendichte lässt sich nur durch eine individuelle Messung bestimmen.</div>';
   }
 
-  /* Verweis auf aerztliche Beratung */
+  /* Verweis auf ärztliche Beratung */
   h+='<div class="summary-info"><strong>Möchten Sie etwas über Ihr persönliches Osteoporoserisiko und die '+
      'Therapiemöglichkeiten erfahren?</strong> Setzen Sie sich mit Ihrer Hausärztin, Ihrem Hausarzt oder mit einer '+
      'orthopädischen Praxis in Verbindung. Nur dort kann eine Diagnose gestellt werden und ein individueller '+
@@ -774,7 +825,7 @@ function hideSummary(){
 }
 
 /* "Neuer Fall": kompletter Reset von Zustand UND Oberflaeche.
-   Die Aktualisierung laeuft bewusst ueber die normalen Update-Funktionen,
+   Die Aktualisierung läuft bewusst über die normalen Update-Funktionen,
    damit jede Teilansicht denselben Weg nimmt wie bei einer Nutzereingabe. */
 function resetAll(){
   S={gender:'f',age:0,dob:null,tscore:-2.0,sel:{},open:{},bmdDone:null,bmdKnown:null};

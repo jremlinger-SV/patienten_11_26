@@ -65,6 +65,20 @@ Hintergrund: Manche Praxen wollen **keinen PDF-Download und keinen PDF-Versand**
 - `renderResult()` und `resetAll()` rufen `hideSummary()`, damit nie eine veraltete
   Zusammenfassung stehen bleibt.
 - Es wird **keine Datei erzeugt, gespeichert oder versendet**.
+- In der Risikofaktor-Liste der Zusammenfassung steht rechtsbündig der
+  **Risikogradient** je Faktor (`fmtGrad`, deutsches Dezimalkomma – dieselbe
+  Formatierung wie die Badges in Schritt 2), darunter eine kurze Legende.
+- `RF_NOTE` hält **patiententaugliche Erläuterungen zu Fachbegriffen**
+  (z. B. MGUS), die `rfLabel()` an die Beschriftung aus `calc.js` anhängt –
+  in Schritt 2 **und** in der Zusammenfassung. Bewusst in der HTML und **nicht**
+  in `calc.js`, damit der Rechenkern mit der Arztversion identisch bleibt.
+
+### Veraltete Warnung entfernt
+Hier stand bis 2026-11-11 der Hinweis, der Spaltenversatz in `TABLES.f.t10[90]`
+sei in `DOUV Kalkulator` und `DOUV Kalkulator Praxis` noch nicht korrigiert.
+**Das stimmt nicht mehr:** Alle vier `calc.js` (Arztversion, Praxis, Patient,
+Patient reduziert) sind byteidentisch (MD5 `ea1b5a34…`) und enthalten den
+korrigierten Wert.
 
 ## Dateien
 - `Patientenkalkulator.html` – die Anwendung / UI. **Single Source of Truth für die
@@ -154,9 +168,9 @@ Auswirkung: Frauen ab 87,5 Jahren (Nearest-Neighbour ⇒ Zeile 90) bei der 10 %-
 u. a. wurde für T = 0,0 ohne jeden Risikofaktor fälschlich „über 10 %" statt „unter 3 %"
 ausgegeben. Behoben und durch den erweiterten Monotonie-Test abgesichert.
 
-**Achtung – gleicher Fehler in den Schwesterprojekten:** `calc.js` in
-`DOUV Kalkulator` (Arztversion) und `DOUV Kalkulator Praxis` enthält dieselbe
-verschobene Zeile und ist dort **noch nicht korrigiert**.
+**Stand 2026-11-11:** In allen Schwesterprojekten (`DOUV Kalkulator`,
+`DOUV Kalkulator Praxis`, `DOUV Patientenkalkulator`) ist derselbe Fehler
+ebenfalls behoben – alle vier `calc.js` sind byteidentisch.
 
 ## Stil / Konventionen
 - Sprache der Oberfläche und aller Texte: **Deutsch**, patiententauglich (Sie-Form).
@@ -172,3 +186,8 @@ verschobene Zeile und ist dort **noch nicht korrigiert**.
   Seite (`toggleSummary` / `buildSummaryHTML`); dort gilt normales Unicode, die
   frühere ASCII-Ersetzung `pdfStr()` wird nicht mehr gebraucht.
 </content>
+- Am Ende von Abschnitt 2 steht das Feld **„Gesamt-Risiko-Faktor aus Ihren
+  Angaben“** – derselbe Wert wie die Faktor-Leiste in Schritt 2 (beide aus
+  `computeS1()`), plus eine Zeile, welche beiden Bereiche multipliziert wurden.
+  Alle Faktor-Anzeigen (Schritt 2, Seitenleiste, Zusammenfassung) laufen über
+  `fmtFactor` / `fmtGrad` und nutzen das **deutsche Dezimalkomma**.
